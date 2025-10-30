@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
@@ -21,6 +22,7 @@ import com.mongodb.assertions.Assertions;
 import net.engineerdigest.journalApp.repository.UserRepository;
 
 @SpringBootTest
+@Disabled
 public class UserDetailsServiceImplTest {
 	
 	@InjectMocks

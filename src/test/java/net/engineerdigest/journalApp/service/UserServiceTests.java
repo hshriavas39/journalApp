@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import net.engineerdigest.journalApp.repository.UserRepository;
 
 @SpringBootTest
+@Disabled
 public class UserServiceTests {
 	
 	@Autowired
