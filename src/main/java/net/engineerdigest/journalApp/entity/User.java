@@ -11,13 +11,19 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
 @Document(collection = "users")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 	
 	@Id
@@ -25,6 +31,8 @@ public class User {
 	@Indexed(unique =  true)
 	@NonNull
 	private String userName;
+	private String email;
+	private boolean sentimentAnalysis;
 	@NonNull
 	private String password;
 	@DBRef

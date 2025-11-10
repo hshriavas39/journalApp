@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.engineerdigest.journalApp.api.response.WeatherResponse;
 import net.engineerdigest.journalApp.entity.JournalEntry;
 import net.engineerdigest.journalApp.entity.User;
 import net.engineerdigest.journalApp.repository.UserRepository;
 import net.engineerdigest.journalApp.service.JournalEntryService;
 import net.engineerdigest.journalApp.service.UserService;
+import net.engineerdigest.journalApp.service.WeatherService;
 
 @RestController
 @RequestMapping("/user")
@@ -38,16 +40,19 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	WeatherService weatherService;
 	
-	@GetMapping
-	public List<User> getAllUsers() {
-		return userService.getAll();	
-	}
 	
-	@PostMapping
-	public void createUser(@RequestBody User user) {
-		 userService.saveNewUser(user);
-	}
+//	@GetMapping
+//	public List<User> getAllUsers() {
+//		return userService.getAll();	
+//	}
+//	
+//	@PostMapping
+//	public void createUser(@RequestBody User user) {
+//		 userService.saveNewUser(user);
+//	}
 	
 	@PutMapping
 	public ResponseEntity<?> updateUser(@RequestBody User user ) {
@@ -69,5 +74,18 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	
+	@GetMapping
+	public ResponseEntity<?> greeting() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		WeatherResponse weatherResponse =  weatherService.getWeather("Mumbai");
+		String greeting = "";	
+		if(weatherResponse != null) {
+			greeting = " Weather feels like " + weatherResponse.getCurrent().getFeelslike();
+		}
+		
+		return new ResponseEntity<>(" Hi " + authentication.getName() + greeting, HttpStatus.OK);
+		
+	}
 	}
 
